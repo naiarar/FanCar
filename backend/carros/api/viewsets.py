@@ -1,8 +1,7 @@
-from rest_framework import serializers
+from rest_framework import viewsets
+from carros.api import serializers
 from carros import models
 
-class CarrosSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = models.Carros
-        fields = '__all__'
-    
+class CarrosViewset(viewsets.ModelViewSet):
+    serializer_class = serializers.CarrosSerializer
+    queryset = models.Carros.objects.all()
