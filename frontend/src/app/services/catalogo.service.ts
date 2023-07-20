@@ -19,4 +19,25 @@ export class CatalogoService {
       '/api/carros/'+id+'/',
     );
   }
+
+  public excluirCarro(id: string) {
+    return this.http.delete(
+      '/api/carros/'+id+'/'
+    );
+  }
+
+  public criarCarro(carro: any) {
+    return this.http.post(
+      '/api/carros/',
+      carro
+    );
+  }
+
+  public atualizarCarro(id: string, carro: any) {
+    return this.http.put(
+      '/api/carros/'+id+'/',
+      carro
+    );
+  }
+
 }

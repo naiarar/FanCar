@@ -16,25 +16,21 @@
   <tbody>
     <tr *ngFor="let carro of carros;">
       <td>{{carro.nome_carro}}</td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>{{carro.marca}}</td>
+      <td>{{carro.modelo}}</td>
+      <td>{{carro.ano_fabricacao}}</td>
+      <td>{{carro.ano_modelo}}</td>
+      <td>{{carro.cor}}</td>
+      <td>{{carro.tipo_combustivel}}</td>
+      <td>{{carro.cambio}}</td>
+      <td>{{carro.quilometragem}}</td>
       <td>
-        <a [routerLink]="['/admin/'+carro.id_carro]">
-          editar
-        </a>
+        <button class="btn btn-primary" [routerLink]="['/admin/'+carro.id_carro]">
+          Editar
+        </button>
       </td>
     </tr>
   </tbody>
 </table>
 
-
-
-
-
-<a routerLink="novo">Novo</a>
+<button class="btn btn-primary" routerLink="novo">Novo</button>

@@ -1,71 +1,57 @@
+<form [formGroup]="carroForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
   <div class="mb-3">
     <label for="nome" class="form-label">Nome do Carro:</label>
-    <input type="text" id="nome" name="nome_carro" formControlName="nome_carro" class="form-control">
+    <input type="text" formControlName="nome_carro" class="form-control">
   </div>
   <div class="mb-3">
     <label for="marca"class="form-label">Marca:</label>
-    <input type="text" id="marca">
+    <input type="text" id="marca" formControlName="marca" >
   </div>
   <div class="mb-3">
     <label for="modelo" class="form-label">Modelo:</label>
-    <input type="text" id="modelo">
+    <input type="text" id="modelo" formControlName="modelo" >
   </div>
   <div class="mb-3">
     <label for="ano-fab" class="form-label">Ano fab:</label>
-    <input type="text" id="ano-fab">
+    <input type="text" id="ano-fab" formControlName="ano_fabricacao">
   </div>
   <div class="mb-3">
     <label for="ano-modelo"class="form-label">Ano Modelo:</label>
-    <input type="text" id="ano-modelo">
+    <input type="text" id="ano-modelo" formControlName="ano_modelo">
   </div>
   <div class="mb-3">
     <label for="cor" class="form-label">Cor:</label>
-    <input type="text" id="cor">
+    <input type="text" id="cor" formControlName="cor" >
   </div>
   <div>
     <label for="tipo-combustivel" class="form-label">Tipo Combustivel:</label>
-    <select name="tipo-combustivel" >
-    <option value=""></option>
-    <option value="gasolina">Gasolina</option>
-    <option value="alcool">Alcool</option>
-    <option value="flex">Flex</option>
-    <option value="diesel">Diesel</option>
-    <option value="gas-natural">Gás Natural</option>
-    <input type="submit" id="tipo-combustivel">
-  </select>
+    <select name="tipo-combustivel" formControlName="tipo_combustivel" >
+      <option value=""></option>
+      <option value="gasolina">Gasolina</option>
+      <option value="alcool">Alcool</option>
+      <option value="flex">Flex</option>
+      <option value="diesel">Diesel</option>
+      <option value="gas-natural">Gás Natural</option>
+    </select>
   </div>
   <div class="mb-3">
     <label for="cambio" class="form-label">Câmbio:</label>
-    <select name="cambio" id="">
-    <option value=""></option>
-    <option value="manual">Manual</option>
-    <option value="automatico">Automático</option>
-    <input type="submit" id="cambio">
+    <select name="cambio" id="" formControlName="cambio">
+      <option value=""></option>
+      <option value="manual">Manual</option>
+      <option value="automatico">Automático</option>
     </select>
   </div>
   <div class="mb-3">
     <label for="quilometragem" class="form-label">Quilometragem:</label>
-    <input type="text" id="quilometragem">
+    <input type="text" id="quilometragem" formControlName="quilometragem">
   </div>
   <div>
     <label class="form-up">Upload imagens</label>
-    <input type="file" name="fotos">
+    <input type="file" name="fotos" formControlName="foto">
   </div>
   <div class="button">
     <button class="btn btn-primary" type="submit">Cadastrar</button>
-
     <button class="btn btn-secondary" routerLink="..">Voltar</button>
   </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
+</form>

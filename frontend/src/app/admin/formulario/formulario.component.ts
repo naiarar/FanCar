@@ -1,6 +1,6 @@
 import { CatalogoService } from 'src/app/services/catalogo.service';
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { first } from 'rxjs';
 
@@ -10,26 +10,19 @@ import { first } from 'rxjs';
   styleUrls: ['./formulario.component.css']
 })
 export class FormularioComponent {
-  public carroForm!: FormGroup;
-  carro: any
+  carroForm: FormGroup;
+  id: string | null
   isAddMode: boolean;
-  constructor(private formBuilder: FormBuilder,
+
+  constructor(
+    private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private catalogoService: CatalogoService) {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.isAddMode = !id
-    if (id) {
-      this.catalogoService.carro(id)
-      .pipe(first()).subscribe(result => {
-        this.carro = result
-        console.log(result)
-        this.carroForm.patchValue(result)
-      })
-    }
+    private router: Router,
+    private catalogoService: CatalogoService
+  ) {
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.isAddMode = !this.id
 
-  }
-
-  ngOnInit() {
     this.carroForm = this.formBuilder.group({
       nome_carro: new FormControl('', Validators.required),
       marca: new FormControl('', Validators.required),
@@ -43,5 +36,51 @@ export class FormularioComponent {
       valor: new FormControl('', Validators.required),
       foto: new FormControl('', Validators.required),
     });
+
+    if (this.id) {
+      this.catalogoService.carro(this.id)
+        .pipe(first())
+        .subscribe(result => {
+          this.carroForm.patchValue(result)
+        })
+    }
+  }
+  onSubmit() {
+    if (this.carroForm.invalid) {
+      return;
+    }
+    if (this.isAddMode) {
+      this.criarCarro();
+    } else {
+      this.atualizarCarro();
+    }
+  }
+
+  private criarCarro() {
+    this.catalogoService.criarCarro(this.carroForm.value)
+      .pipe(first())
+      .subscribe({
+          next: () => {
+            this.router.navigate(['../'], { relativeTo: this.route });
+          },
+          error: error => {
+            console.log(error)
+          }
+      });
+  }
+
+  private atualizarCarro() {
+    if (this.id) {
+      this.catalogoService.atualizarCarro(this.id, this.carroForm.value)
+        .pipe(first())
+        .subscribe({
+            next: () => {
+                this.router.navigate(['../'], { relativeTo: this.route });
+            },
+            error: error => {
+              console.log(error)
+            }
+        });
+    }
   }
 }
