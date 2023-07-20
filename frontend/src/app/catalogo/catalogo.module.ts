@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CatalogoRoutingModule } from './catalogo-routing.module';
 import { CatalogoComponent } from './catalogo.component';
-import { DetalhesCarrosComponent } from '../carros/detalhes-carros/detalhes-carros.component';
+import { DetalhesCarrosComponent } from './detalhes/detalhes-carros.component';
 
 
 @NgModule({

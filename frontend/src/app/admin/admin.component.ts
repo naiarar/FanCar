@@ -1,16 +1,20 @@
 import { Component } from '@angular/core';
 import { CatalogoService } from '../services/catalogo.service';
 
+
 @Component({
-  selector: 'app-catalogo',
-  templateUrl: './catalogo.component.html',
-  styleUrls: ['./catalogo.component.css']
+  selector: 'app-admin',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.css']
+
+
 })
-export class CatalogoComponent {
+
+export class AdminComponent {
   carros: any
   constructor(private catalogoService: CatalogoService) {
-    this.catalogoService.carros().subscribe(result => {
+    this.catalogoService.carros().subscribe((result) => {
       this.carros = result
-    })
+    });
   }
 }

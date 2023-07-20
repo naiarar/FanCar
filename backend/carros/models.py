@@ -14,4 +14,5 @@ class Carros(models.Model):
     tipo_combustivel = models.CharField(max_length=10)
     cambio = models.CharField(max_length=10)
     quilometragem = models.IntegerField()
-    foto = models.ImageField(upload_to=upload_imagem_carro, blank=False, null=False)
+    valor = models.IntegerField()
+    foto = models.ImageField(upload_to=upload_imagem_carro, blank=True, null=True)

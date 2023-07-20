@@ -1,9 +1,9 @@
-<form>
+<form [formGroup]="loginForm">
   <fieldset>
       <legend>Login</legend>
       <div class="form-field">
           <label>Username:</label>
-          <input name="username" formControlName="usarname">
+          <input name="username" formControlName="username">
       </div>
       <div class="form-field">
           <label>Password:</label>
@@ -12,6 +12,6 @@
       </div>
   </fieldset>
   <div class="form-buttons">
-      <button class="button button-primary">Login</button>
+      <button class="button button-primary" (click)="onSubmit()">Login</button>
   </div>
 </form>

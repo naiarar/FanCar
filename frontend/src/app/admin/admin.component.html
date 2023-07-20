@@ -1,0 +1,40 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Nome Carro</th>
+      <th scope="col">Marca</th>
+      <th scope="col">Modelo</th>
+      <th scope="col">Ano Faricação</th>
+      <th scope="col">Ano Modelo</th>
+      <th scope="col">Cor</th>
+      <th scope="col">Tipo Combustível</th>
+      <th scope="col">Câmbio</th>
+      <th scope="col">Quilometragem</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let carro of carros;">
+      <td>{{carro.nome_carro}}</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <a [routerLink]="['/admin/'+carro.id_carro]">
+          editar
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+<a routerLink="novo">Novo</a>

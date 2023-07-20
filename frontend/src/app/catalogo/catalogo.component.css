@@ -6,6 +6,7 @@
   flex-flow: row wrap;
   justify-content: space-evenly;
   align-content: center;
+
 }
 
 .car-list__card {
@@ -14,7 +15,7 @@
   border-radius: 4px;
   flex: 0 1 270px;
   height: 450px;
-  background-color: white;
+  background-color: var(--dark-orange);
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
 
@@ -30,6 +31,7 @@
   align-items: center;
   row-gap: 10px;
   text-decoration: none;
+  background-color: var(--dark-orange);
 }
 
 .car-list__card img {
@@ -37,21 +39,23 @@
   width: 250px;
   display: block;
   border-radius: 4px;
+  background-color: var(--dark-orange);
 }
 
 .car-item__name {
   font-size: 24px;
   color: var(--blue);
+  background-color: var(--dark-orange);
 }
 
 .car-item__price {
-  color: var(--orange);
+  color: var(--light-blue);
   font-size: 32px;
   font-weight: bold;
 }
 
 .car-item__price-deion {
-  color: var(--gray);
+  color: var(--dark-orange);
   font-size: 12px;
   font-weight: bold;
 }
@@ -59,7 +63,7 @@
 .car-item__buy-button {
   background-color: var(--blue);
   border: none;
-  color: white;
+  color: var(--dark-orange);
   font-size: 20px;
   padding: 6px 12px;
 }

@@ -1,12 +1,12 @@
 <section class="car-list">
-  <div class="car-list__card">
-    <a [routerLink]="['/carros/{{produto.id}}']" routerLinkActive="router-link-active"  class="car-list__link">
-      <img src="" alt="">
+  <div *ngFor="let carro of carros;" class="car-list__card">
+    <a [routerLink]="['/catalogo/'+carro.id_carro]" routerLinkActive="router-link-active"  class="car-list__link">
+      <img src="{{carro.foto}}" alt="">
       <h2 class="car-list__name">
-        Carro 01
+        {{carro.nome_carro}}
       </h2>
       <p class="car-item__price">
-        R$ 0,00
+        {{carro.valor}}
       </p>
       <p class="car-item__price-description">
         à vista

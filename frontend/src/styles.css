@@ -1,12 +1,14 @@
 
 :root {
-    --orange: #ff7000;
-    --blue: #0f4c5c;
-    --green: #00A200;
-    --dark-blue: #002d47;
-    --gray: rgba(88, 89, 91, 1);
-    --light-gray: rgba(232, 232, 232, 1);
-    --light-gray-2: rgb(247, 247, 247);
+  --orange: #ff7000;
+  --dark-orange: #ff7e2e;
+  --light-blue:#619b8a;
+  --blue: #0f4c5c;
+  --green: #00A200;
+  --dark-blue: #002d47;
+  --gray: rgba(88, 89, 91, 1);
+  --light-gray: rgba(232, 232, 232, 1);
+  --light-gray-2: rgb(247, 247, 247);
 }
 
 html, body, div, span, applet, object, iframe,
@@ -22,64 +24,65 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup,
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
+margin: 0;
+padding: 0;
+border: 0;
+font-size: 100%;
+font: inherit;
+vertical-align: baseline;
+background-color: var(--light-gray);
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
-	display: block;
+display: block;
 }
 body {
-	line-height: 1;
-    font-family: "Open Sans", Helvetica, Arial, "sans-serif";
+line-height: 1;
+  font-family: "Open Sans", Helvetica, Arial, "sans-serif";
 }
 ol, ul {
-	list-style: none;
+list-style: none;
 }
 blockquote, q {
-	quotes: none;
+quotes: none;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+content: '';
+content: none;
 }
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+border-collapse: collapse;
+border-spacing: 0;
 }
 
 input, textarea, select {
-	padding: 10px;
-	font-size: 16px;
+padding: 10px;
+font-size: 16px;
 }
 
 input:focus, textarea:focus, select:focus {
-	border: 1px solid rgba(0, 74, 124, 0.6);
-	outline: none;
+border: 1px solid rgba(0, 74, 124, 0.6);
+outline: none;
 }
 
 textarea {
-	resize: none;
+resize: none;
 }
 
 .error-message {
-    color: red;
+  color: red;
 }
 
 .valid {
-    border: 1px solid var(--green);
+  border: 1px solid var(--green);
 }
 
 .invalid {
-    border: 1px solid red;
+  border: 1px solid red;
 }
 
 .invalid:focus {
-	border-color: red;
+border-color: red;
 }
