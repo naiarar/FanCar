@@ -55,9 +55,6 @@ export class FormularioComponent {
   }
 
   onSubmit() {
-    if (this.carroForm.invalid) {
-      return;
-    }
     if (this.isAddMode) {
       this.criarCarro();
     } else {
