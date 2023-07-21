@@ -1,3 +1,4 @@
+
 <form [formGroup]="carroForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
   <div class="mb-3">
     <label for="nome" class="form-label">Nome do Carro:</label>
@@ -48,7 +49,7 @@
   </div>
   <div>
     <label class="form-up">Upload imagens</label>
-    <input type="file" name="fotos" formControlName="foto">
+    <input type="file" name="fotoToUpload" formControlName="fotoToUpload" (change)="onFileSelected($event)">
   </div>
   <div class="button">
     <button class="btn btn-primary" type="submit">Cadastrar</button>

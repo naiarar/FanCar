@@ -34,7 +34,8 @@ export class FormularioComponent {
       cambio: new FormControl('', Validators.required),
       quilometragem: new FormControl('', Validators.required),
       valor: new FormControl('', Validators.required),
-      foto: new FormControl('', Validators.required),
+      foto: new FormControl(null),
+      fotoToUpload: new FormControl(null),
     });
 
     if (this.id) {
@@ -45,6 +46,14 @@ export class FormularioComponent {
         })
     }
   }
+
+  onFileSelected(event:any) {
+    const file:File = event.target.files[0];
+    if (file) {
+      this.carroForm.patchValue({ foto: file })
+    }
+  }
+
   onSubmit() {
     if (this.carroForm.invalid) {
       return;
@@ -56,8 +65,25 @@ export class FormularioComponent {
     }
   }
 
+  private formData() {
+    const formData = new FormData();
+    formData.append("nome_carro", this.carroForm.value.nome_carro);
+    formData.append("marca", this.carroForm.value.marca)
+    formData.append("modelo", this.carroForm.value.modelo)
+    formData.append("ano_fabricacao", this.carroForm.value.ano_fabricacao)
+    formData.append("ano_modelo", this.carroForm.value.ano_modelo)
+    formData.append("cor", this.carroForm.value.cor)
+    formData.append("tipo_combustivel", this.carroForm.value.tipo_combustivel)
+    formData.append("cambio", this.carroForm.value.cambio)
+    formData.append("quilometragem", this.carroForm.value.quilometragem)
+    formData.append("valor", this.carroForm.value.valor)
+    formData.append("foto", this.carroForm.value.foto)
+
+    return formData
+  }
+
   private criarCarro() {
-    this.catalogoService.criarCarro(this.carroForm.value)
+    this.catalogoService.criarCarro(this.formData())
       .pipe(first())
       .subscribe({
           next: () => {
@@ -71,7 +97,7 @@ export class FormularioComponent {
 
   private atualizarCarro() {
     if (this.id) {
-      this.catalogoService.atualizarCarro(this.id, this.carroForm.value)
+      this.catalogoService.atualizarCarro(this.id, this.formData())
         .pipe(first())
         .subscribe({
             next: () => {
