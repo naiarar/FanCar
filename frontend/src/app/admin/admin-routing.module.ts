@@ -5,8 +5,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   { path: '', component: AdminComponent },
+  { path:'novo', component: FormularioComponent},
   { path:':id', component: FormularioComponent},
-  { path:'novo', component: FormularioComponent}
 ];
 
 @NgModule({
