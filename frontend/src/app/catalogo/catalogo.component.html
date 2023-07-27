@@ -1,3 +1,14 @@
+<div class="filter-card">
+  <form class="search-form__input" >
+    <input type="text" class="search-form__input" placeholder="Encotre seu modelo favorito">
+    <button class="search-form__button"><i>Pesquisar</i></button>
+  </form>
+</div>
+<div class="botton-order">
+  <button (click)="ordenaCarros()">
+    {{orderbyasc ? 'Maior preço': 'Menor preço'}}
+  </button>
+</div>
 <section class="car-list">
   <div *ngFor="let carro of carros;" class="car-list__card">
     <a [routerLink]="['/catalogo/'+carro.id_carro]" routerLinkActive="router-link-active"  class="car-list__link">
@@ -6,7 +17,7 @@
         {{carro.nome_carro}}
       </h2>
       <p class="car-item__price">
-        {{carro.valor}}
+        {{carro.valor | currency: 'BRL'}}
       </p>
       <p class="car-item__price-description">
         à vista

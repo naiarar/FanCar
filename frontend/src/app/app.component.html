@@ -1,8 +1,8 @@
 <header class="main-header">
-  <h1 class="main-header__title">
-    <span routerLink="catalogo" class="main-header__title--orange">Fan</span><span routerLink="catalogo" class="main-header__title--blue">Car</span>
+  <div class="main-header__container">
+    <h1 class="main-header__title">
+    <span routerLink="catalogo" class="main-header__title--blue">FanCar</span>
   </h1>
-  <div class="continer-menu">
     <nav class="main-header__menu">
       <ul>
         <li *ngIf="isLogged"><a routerLink="admin">
@@ -20,14 +20,20 @@
         <li><a>
           <i class="fa-brands fa-facebook"></i>
         </a></li>
-        <li *ngIf="!isLogged"><a routerLink="login">Login</a></li>
+       <li *ngIf="!isLogged"><a routerLink="login">Login</a></li>
         <li><a *ngIf="isLogged" (click)="logout()">Logout</a></li>
       </ul>
     </nav>
-    <form class="search-form__input">
-        <input type="text">
-        <button><i class="fa-solid fa-magnifying-glass"></i></button>
-    </form>
+  </div>
+  <div class="header-block">
+    <div class="text">
+      <h2>Temos o carro perfeito para você!</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni, iusto.
+      </p>
+    </div>
+    <img src="/assets/img/x1-2016-2019-suv.png" alt="BMW-X1">
+
   </div>
 </header>
 <div class="container">
@@ -45,8 +51,7 @@
     <ul>
       <li><a><i class="fa-solid fa-phone">(00) 0000-0000</i></a></li>
       <li><a><i class="fa-brands fa-whatsapp">(00) 0000-0000</i></a></li>
-    <li><a><i class="fa-solid fa-envelope">email@email.com</i>
-    </a></li>
+      <li><a><i class="fa-solid fa-envelope">email@email.com</i></a></li>
   </ul>
   </address>
   <section class="footer__copyright">

@@ -10,10 +10,21 @@ import { CatalogoService } from '../services/catalogo.service';
 
 export class AdminComponent {
   carros: any
+  orderbyasc : boolean
   constructor(private catalogoService: CatalogoService) {
-    this.catalogoService.carros().subscribe((result) => {
+    this.orderbyasc = true
+    this.getCarros()
+  }
+
+  getCarros (){
+    this.catalogoService.carros('valor',this.orderbyasc).subscribe(result => {
       this.carros = result
-    });
+    })
+  }
+
+  ordenaCarros (){
+    this.orderbyasc = !this.orderbyasc
+    this.getCarros()
   }
 
   excluirCarro(id: string) {
