@@ -4,9 +4,9 @@
     <button class="search-form__button"><i>Pesquisar</i></button>
   </form>
 </div>
-<div class="botton-order">
-  <button (click)="ordenaCarros()">
-    {{orderbyasc ? 'Maior preço': 'Menor preço'}}
+<div >
+  <button class="botton-order" (click)="ordenaCarros()">
+    Odenar por: <strong>{{orderbyasc ? 'Maior preço': 'Menor preço'}}</strong>
   </button>
 </div>
 <section class="car-list">

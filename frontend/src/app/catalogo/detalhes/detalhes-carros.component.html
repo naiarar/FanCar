@@ -1,14 +1,59 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h1 class="text-center">{{carro.marca}} {{carro.nome_carro}}</h1>
+  <a class="btn btn-light" href="..">Voltar</a>
+</div>
 
-<h1>{{carro.nome_carro}}</h1>
-<img src="{{carro.foto}}" alt="">
-<ul>
-  <li>{{carro.marca}}</li>
-  <li>{{carro.modelo}}</li>
-  <li>{{carro.ano_fabricacao}}</li>
-  <li>{{carro.ano_modelo}}</li>
-  <li>{{carro.cor}}</li>
-  <li>{{carro.tipo_combustivel}}</li>
-  <li>{{carro.cambio}}</li>
-  <li>{{carro.quilometragem}}</li>
-  <li>{{carro.valor}}</li>
-</ul>
+<div class="pb-4">
+<div class="d-flex align-items-center">
+
+<table class="table table-striped">
+  <tbody>
+    <tr>
+      <td scope="col">Carro</td>
+      <td>{{carro.nome_carro}}</td>
+    </tr>
+    <tr>
+      <td scope="col">Marca</td>
+      <td>{{carro.marca}}</td>
+    </tr>
+
+    <tr>
+      <td scope="col">Modelo</td>
+      <td>{{carro.modelo}}</td>
+
+    </tr>
+    <tr>
+      <td scope="col">Fabricação</td>
+      <td>{{carro.ano_fabricacao}}</td>
+
+    </tr>
+    <tr>
+      <td scope="col">Modelo</td>
+      <td>{{carro.ano_modelo}}</td>
+    </tr>
+    <tr>
+      <td scope="col">Cor</td>
+      <td>{{carro.cor}}</td>
+
+    </tr>
+    <tr>
+      <td scope="col">Combustível</td>
+      <td>{{carro.tipo_combustivel}}</td>
+
+    </tr>
+    <tr>
+      <td scope="col">Câmbio</td>
+      <td>{{carro.cambio}}</td>
+
+    </tr>
+    <tr>
+      <td scope="col">Quilometragem</td>
+      <td>{{carro.quilometragem}} KM</td>
+
+    </tr>
+  </tbody>
+  </table>
+  <img class="img-fluid mx-3" src="{{carro.foto}}" alt="">
+
+</div>
+</div>

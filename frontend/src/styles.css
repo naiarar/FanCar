@@ -19,7 +19,7 @@ font: "Mulish";
   --green: #00A200;
   --dark-blue: #002d47;
   --gray: rgba(88, 89, 91, 1);
-  --light-gray: rgba(232, 232, 232, 1);
+  --light-gray: rgba(232, 232, 232, 0.863);
   --light-gray-2: rgb(247, 247, 247);
 }
 

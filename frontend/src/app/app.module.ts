@@ -8,7 +8,11 @@ import { AuthInterceptor } from './auth.interceptor';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ContatoModule } from './contato/contato.module';
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID} from '@angular/core';
+import ptBr from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
 
+registerLocaleData(ptBr);
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +29,8 @@ import { ContatoModule } from './contato/contato.module';
   ],
   providers: [
     AuthInterceptor,
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'pt' },
   ],
   bootstrap: [AppComponent]
 })

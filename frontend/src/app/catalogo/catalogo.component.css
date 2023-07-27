@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300&display=swap');
+
+*{
+  font-family: 'Mulish';
+}
+
 .search-form {
   width: 980px;
   height: 150px;
@@ -12,14 +18,21 @@
 .botton-order{
   background: white;
   border-radius: 8px;
-  margin: 0 auto;
+  margin: 16px 0 0 auto;
   display: flex;
   flex-direction: row;
   align-items: left;
   justify-content: left;
 }
+
+.botton-order strong{
+  min-width: 94px;
+  display: inline-block;
+  text-align: right;
+}
+
 .filter-card{
-  width: 1000px;
+  width: 100%;
   height: 150px;
   background: var(--light-gray);
   border-radius: 8px;
@@ -73,6 +86,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  padding: 5px;
+  margin: 5px;
 }
 
 .car-list__card:hover {
@@ -87,8 +102,8 @@
   align-items: center;
   row-gap: 10px;
   text-decoration: none;
-  /* background-color: var(--dark-orange); */
   border-radius:  70% 70% 30% / 30% 30% 70% 70%;
+  margin: 5px;
 }
 
 .car-list__card img {
@@ -100,32 +115,34 @@
 .car-item__name {
   font-size: 24px;
   color: var(--blue);
-  background-color: var(--dark-orange);
+  font-weight: bold;
 }
 
 .car-item__price {
   color: var(--light-blue);
   font-size: 32px;
   font-weight: bold;
-}
-
-.car-item__price-deion {
-  color: var(--dark-orange);
-  font-size: 12px;
-  font-weight: bold;
+  margin: 0px;
 }
 
 .car-item__buy-button {
+  width: 90%;
+  padding: 10px 0px;
   background-color: var(--blue);
   border: none;
-  color: var(--dark-orange);
+  color: var(--light-gray);
   font-size: 20px;
-  padding: 6px 12px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-bottom: 10px;
 }
 
 .car-item__buy-button:hover {
-  filter: brightness(1.1);
-  cursor: pointer;
+  background: var(--light-gray);
+  color: var(--blue);
 }
 
 

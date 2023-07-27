@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300&display=swap');
+
+
+*{
+  font-family: 'Mulish';
+}
+
+
+img {
+  max-width: 70%;
+  max-height: 300px;
+}
+
+table{
+  list-style: none;
+  font-weight: bold;
+  font-size: 18px;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: none;
+  padding: 8px;
+  text-align: center;
+
+}
