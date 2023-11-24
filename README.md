@@ -4,17 +4,17 @@ Um projeto de loja online para venda de veiculos
 ## Pré-requisitos
 Antes de começar, você precisará ter instalado em sua máquina:
 
-Node.js (https://nodejs.org)
+Node.js v18.15.0 (https://nodejs.org)
 
 Angular CLI (https://angular.io/cli)
 
-Python (https://www.python.org)
+Python 3.10.12 (https://www.python.org)
 
-pip (Gerenciador de pacotes Python)
+pip 22.0.2 (Gerenciador de pacotes Python)
 
-Docker (https://www.docker.com)
+Docker 24.0.7 (https://www.docker.com)
 
-Rest Framework (https://www.django-rest-framework.org/)
+Rest Framework 3.14.0 (https://www.django-rest-framework.org/)
 
 CORS (https://pypi.org/project/django-cors-headers/)
 
