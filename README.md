@@ -4,9 +4,9 @@ Um projeto de loja online para venda de veiculos
 ## Pré-requisitos
 Antes de começar, você precisará ter instalado em sua máquina:
 
-Node.js v18.15.0 (https://nodejs.org)
+Node.js 18.15.0 (https://nodejs.org)
 
-Angular CLI (https://angular.io/cli)
+Angular CLI 16.2.0(https://angular.io/cli)
 
 Python 3.10.12 (https://www.python.org)
 
