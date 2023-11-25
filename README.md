@@ -30,7 +30,7 @@ Navegue até a pasta do backend:
 
 Inicie o servidor da API REST:
 
-```python app.py```
+```python3 manage.py runserver```
 
 
 Certifique-se de que o servidor está sendo executado em http://localhost:5000/ ou atualize a URL de acordo com sua configuração.
@@ -57,7 +57,7 @@ Instale as dependências do projeto:
 
 Inicie o servidor de desenvolvimento do Angular:
 
-`ng serve`
+`npm start`
 
 O aplicativo será executado em http://localhost:4200/. Acesse essa URL em seu navegador para visualizar o projeto.<br>
 
