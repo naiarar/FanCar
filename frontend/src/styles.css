@@ -26,7 +26,22 @@ font: "Mulish";
 html,
 body {
   width: 100%;
+  min-height: 100vh;
 
+}
+
+body {
+  width: 100%;
+  overflow: auto;
+}
+.page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex-grow: 1;
 }
 
 header {
