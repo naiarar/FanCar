@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { NaoEncontradaComponent } from './nao-encontrada/nao-encontrada.component';
 import { AdminComponent } from './admin/admin.component';
 import { LoginComponent } from './login/login.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent},
