@@ -1,29 +1,37 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { AuthService } from './auth/auth.service';
+import { of, Subject } from 'rxjs';
+import { MockAuthService } from './auth/mock.authservice';
+
 
 describe('AppComponent', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
-    declarations: [AppComponent]
-  }));
+  let component: AppComponent;
+  let authService: AuthService;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [AppComponent, { provide: AuthService, useClass: MockAuthService }],
+    });
+
+    component = TestBed.inject(AppComponent);
+    authService = TestBed.inject(AuthService);
   });
 
-  it(`should have as title 'frontend'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('frontend');
+  it('should create the app component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('frontend app is running!');
+
+  it('should be isLogged true when AuthService isLogged is true', () => {
+    expect(component.isLogged).toBe(true);
   });
+
+  it('should set isLogged to false when AuthService call logout', () => {
+    authService.logout()
+
+    expect(component.isLogged).toBe(false);
+  });
+
 });
