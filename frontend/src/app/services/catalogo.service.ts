@@ -35,7 +35,7 @@ export class CatalogoService {
   }
 
   public atualizarCarro(id: string, carro: any) {
-    return this.http.put(
+    return this.http.patch(
       '/api/carros/'+id+'/',
       carro
     );

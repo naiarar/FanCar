@@ -74,7 +74,10 @@ export class FormularioComponent {
     formData.append("cambio", this.carroForm.value.cambio)
     formData.append("quilometragem", this.carroForm.value.quilometragem)
     formData.append("valor", this.carroForm.value.valor)
-    formData.append("foto", this.carroForm.value.foto)
+    if (this.carroForm.value.fotoToUpload){
+      formData.append("foto", this.carroForm.value.foto)
+
+    }
 
     return formData
   }
