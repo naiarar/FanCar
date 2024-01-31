@@ -15,4 +15,4 @@ class Carros(models.Model):
     cambio = models.CharField(max_length=10)
     quilometragem = models.IntegerField()
     valor = models.IntegerField()
-    foto = models.ImageField(upload_to=upload_imagem_carro, blank=True, null=True)
+    foto = models.ImageField(upload_to=upload_imagem_carro, editable = True, null=True)
