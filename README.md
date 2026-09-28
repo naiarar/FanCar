@@ -1,83 +1,84 @@
-# FanCar
-Um projeto de loja online para venda de veiculos
+# FanCar 🚗
 
-## Pré-requisitos
-Antes de começar, você precisará ter instalado em sua máquina:
+Loja online de veículos com **catálogo público** e **área administrativa autenticada** para cadastrar, editar e remover carros.
 
-Node.js 18.15.0 (https://nodejs.org)
+![Catálogo do FanCar](docs/catalogo.png)
+![Área administrativa](docs/admin.png)
 
-Angular CLI 16.2.0(https://angular.io/cli)
+## Funcionalidades
 
-Python 3.10.12 (https://www.python.org)
+- Catálogo de veículos com página de detalhes e ordenação por preço
+- Login com **JWT** (access + refresh token)
+- Área admin protegida por guard, com tabela de veículos e formulário de cadastro/edição
+- Upload de foto do veículo, servida pela própria API
+- Página de contato e página 404
 
-pip 22.0.2 (Gerenciador de pacotes Python)
+## Stack
 
-Docker 24.0.7 (https://www.docker.com)
+| Camada | Tecnologia |
+|---|---|
+| Front-end | Angular 16 (módulos com lazy loading) |
+| Back-end | Django 4.2, Django REST Framework, SimpleJWT, python-decouple |
+| Banco | PostgreSQL 14 (via Docker) |
 
-Rest Framework 3.14.0 (https://www.django-rest-framework.org/)
+## Arquitetura
 
-CORS (https://pypi.org/project/django-cors-headers/)
+```
+FanCar/
+├── backend/
+│   ├── backend/       settings, rotas e configuração do JWT
+│   └── carros/        model, serializer e viewset de Carros
+├── frontend/src/app/
+│   ├── auth/          serviço, guard e interceptor de autenticação
+│   ├── catalogo/      listagem e detalhes dos veículos
+│   ├── admin/         tabela e formulário de cadastro
+│   └── services/      comunicação com a API
+└── docker-compose.yaml
+```
 
-### Configuração do Backend (API REST)
+## Endpoints
 
-Navegue até a pasta do backend:
+| Método | Rota | Descrição |
+|---|---|---|
+| POST | `/api/token/` | Gera access e refresh token |
+| POST | `/api/token/refresh/` | Renova o access token |
+| GET | `/api/carros/?ordering=valor` | Lista veículos (ordenável por valor) |
+| POST/PUT/PATCH/DELETE | `/api/carros/{id}/` | Cadastra, edita e remove veículos |
 
-```cd backend```
+## Como rodar
 
-### Instale as dependências do Python:
+**Pré-requisitos:** Python 3.10+, Node 18+, Docker.
 
-```pip install -r requirements.txt```
+```bash
+docker compose up -d
 
-Inicie o servidor da API REST:
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python manage.py migrate
+python manage.py createsuperuser
+python manage.py runserver
+```
 
-```python3 manage.py runserver```
+Em outro terminal:
 
+```bash
+cd frontend
+npm install
+npm start
+```
 
-Certifique-se de que o servidor está sendo executado em http://localhost:5000/ ou atualize a URL de acordo com sua configuração.
+Acesse `http://localhost:4200` e entre em **Admin** com o usuário criado no `createsuperuser`.
 
-### Configuração do Banco de Dados (Docker)
-Certifique-se de que o Docker esteja instalado e em execução na sua máquina.
+## Testes
 
-Navegue até a pasta do projeto onde está o arquivo docker-compose.yml.
+```bash
+cd backend && python manage.py test
+cd frontend && npm test
+```
 
-Execute o seguinte comando para criar e iniciar o container do banco de dados:
+## Autora
 
-`docker-compose up -d`
-
-O banco de dados estará disponível na porta configurada no arquivo docker-compose.yml.
-
-### Configuração do Frontend (Angular)
-Navegue até a pasta do frontend:
-
-`cd frontend`
-
-Instale as dependências do projeto:
-
-`npm install`
-
-Inicie o servidor de desenvolvimento do Angular:
-
-`npm start`
-
-O aplicativo será executado em http://localhost:4200/. Acesse essa URL em seu navegador para visualizar o projeto.<br>
-
-## Uso do Projeto
-Este projeto é ideal para lojas que comercializam veículos, permitindo cadastrar, descrever as principais características, editar e excluir veículos cadastrados.
-Para cadastrar veículos, o usuário precisa estar logado, ir até a área 'Admin' localizada no canto superior direito da tela. Após acessar a área administrativa, os veículos já cadastrados serão exibidos em uma tabela, além de um botão para cadastrar um novo veículo. Ao pressionar esse botão, será aberta uma tela de cadastro onde o usuário deverá preencher todos os dados do veículo e fazer upload de uma foto antes de salvar. Para editar ou deletar um veículo, basta selecioná-lo na área administrativa e utilizar os botões localizados ao lado dos veículos.
-Para ordenar por valor, há um botão tanto no 'Catálogo' quanto na tabela da área administrativa. Lembrando que o acesso à área administrativa requer autenticação do usuário.
-
-## Estrutura do Projeto
-As pastas "backend" e "frontend" estão na raiz do projeto.
-Na pasta "backend", estão localizadas a subpasta "backend" com os arquivos de settings, urls principais e views onde estão as configurações do token JWT. E a pasta "carros" onde estão armazenadas as características do veículo.
-Na pasta "frontend", está toda a parte visual do projeto, incluindo os arquivos .html, .css e .ts.
-
-## Contribuição
-Se quiser contribuir com este projeto, siga os passos abaixo:<br>
-Faça um fork do repositório<br>
-Crie uma branch com sua feature ou correção: `git checkout -b minha-feature`<br>
-Faça o commit das suas alterações:` git commit -m 'Minha nova feature'`<br>
-Envie para o repositório remoto: `git push origin minha-feature`<br>
-Crie um novo Pull Request explicando suas mudanças.
-
-## Contato
-Para dúvidas ou sugestões entre em contato pelo email rnaiara92@gmail.com
+Feito por [Naiara Rodrigues](https://github.com/naiarar).
