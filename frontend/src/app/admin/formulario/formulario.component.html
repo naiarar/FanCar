@@ -1,62 +1,81 @@
+<form [formGroup]="carroForm" (ngSubmit)="onSubmit()" novalidate>
+  <h2>{{ id() ? 'Editar veículo' : 'Cadastrar veículo' }}</h2>
 
-<form [formGroup]="carroForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+  @if (erros().length) {
+    <div class="alert alert-danger" role="alert">
+      @for (erro of erros(); track erro) {
+        <p class="mb-0">{{ erro }}</p>
+      }
+    </div>
+  }
+
   <div class="mb-3">
-    <label for="nome" class="form-label">Nome do Carro:</label>
-    <input type="text" formControlName="nome_carro" class="form-control">
-  </div>
-  <div class="mb-3">
-    <label for="marca"class="form-label">Marca:</label>
-    <input type="text" id="marca" formControlName="marca" >
-  </div>
-  <div class="mb-3">
-    <label for="modelo" class="form-label">Modelo:</label>
-    <input type="text" id="modelo" formControlName="modelo" >
-  </div>
-  <div class="mb-3">
-    <label for="ano-fab" class="form-label">Ano fab:</label>
-    <input type="text" id="ano-fab" formControlName="ano_fabricacao">
+    <label for="nome_carro" class="form-label">Nome do carro</label>
+    <input type="text" id="nome_carro" formControlName="nome_carro" class="form-control" [class.is-invalid]="invalido('nome_carro')">
   </div>
   <div class="mb-3">
-    <label for="ano-modelo"class="form-label">Ano Modelo:</label>
-    <input type="text" id="ano-modelo" formControlName="ano_modelo">
+    <label for="marca" class="form-label">Marca</label>
+    <input type="text" id="marca" formControlName="marca" class="form-control" [class.is-invalid]="invalido('marca')">
   </div>
   <div class="mb-3">
-    <label for="cor" class="form-label">Cor:</label>
-    <input type="text" id="cor" formControlName="cor" >
+    <label for="modelo" class="form-label">Modelo</label>
+    <input type="text" id="modelo" formControlName="modelo" class="form-control" [class.is-invalid]="invalido('modelo')">
   </div>
-  <div>
-    <label for="tipo-combustivel" class="form-label">Tipo Combustivel:</label>
-    <select name="tipo-combustivel" formControlName="tipo_combustivel" >
-      <option value=""></option>
-      <option value="gasolina">Gasolina</option>
-      <option value="alcool">Alcool</option>
-      <option value="flex">Flex</option>
-      <option value="diesel">Diesel</option>
-      <option value="gas-natural">Gás Natural</option>
-    </select>
-  </div>
-  <div class="mb-3">
-    <label for="cambio" class="form-label">Câmbio:</label>
-    <select name="cambio" id="" formControlName="cambio">
-      <option value=""></option>
-      <option value="manual">Manual</option>
-      <option value="automatico">Automático</option>
-    </select>
+  <div class="row g-2 mb-3">
+    <div class="col">
+      <label for="ano_fabricacao" class="form-label">Ano de fabricação</label>
+      <input type="number" id="ano_fabricacao" formControlName="ano_fabricacao" class="form-control" min="1900" [max]="anoMaximo" [class.is-invalid]="invalido('ano_fabricacao')">
+    </div>
+    <div class="col">
+      <label for="ano_modelo" class="form-label">Ano do modelo</label>
+      <input type="number" id="ano_modelo" formControlName="ano_modelo" class="form-control" min="1900" [max]="anoMaximo" [class.is-invalid]="invalido('ano_modelo')">
+    </div>
   </div>
   <div class="mb-3">
-    <label for="valor" class="form-label">Valor:</label>
-    <input type="text" id="valor" formControlName="valor">
+    <label for="cor" class="form-label">Cor</label>
+    <input type="text" id="cor" formControlName="cor" class="form-control" [class.is-invalid]="invalido('cor')">
+  </div>
+  <div class="row g-2 mb-3">
+    <div class="col">
+      <label for="tipo_combustivel" class="form-label">Combustível</label>
+      <select id="tipo_combustivel" formControlName="tipo_combustivel" class="form-select" [class.is-invalid]="invalido('tipo_combustivel')">
+        <option value="" disabled>Selecione</option>
+        @for (opcao of combustiveis | keyvalue; track opcao.key) {
+          <option [value]="opcao.key">{{ opcao.value }}</option>
+        }
+      </select>
+    </div>
+    <div class="col">
+      <label for="cambio" class="form-label">Câmbio</label>
+      <select id="cambio" formControlName="cambio" class="form-select" [class.is-invalid]="invalido('cambio')">
+        <option value="" disabled>Selecione</option>
+        @for (opcao of cambios | keyvalue; track opcao.key) {
+          <option [value]="opcao.key">{{ opcao.value }}</option>
+        }
+      </select>
+    </div>
+  </div>
+  <div class="row g-2 mb-3">
+    <div class="col">
+      <label for="quilometragem" class="form-label">Quilometragem (km)</label>
+      <input type="number" id="quilometragem" formControlName="quilometragem" class="form-control" min="0" [class.is-invalid]="invalido('quilometragem')">
+    </div>
+    <div class="col">
+      <label for="valor" class="form-label">Valor (R$)</label>
+      <input type="number" id="valor" formControlName="valor" class="form-control" min="1" [class.is-invalid]="invalido('valor')">
+    </div>
   </div>
   <div class="mb-3">
-    <label for="quilometragem" class="form-label">Quilometragem:</label>
-    <input type="text" id="quilometragem" formControlName="quilometragem">
+    <label for="foto" class="form-label">Foto</label>
+    @if (fotoAtual(); as foto) {
+      <img [src]="foto" alt="Foto atual do veículo" class="foto-atual">
+    }
+    <input type="file" id="foto" accept="image/*" class="form-control" (change)="onFileSelected($event)">
   </div>
-  <div>
-    <label class="form-up">Upload imagens</label>
-    <input type="file" name="fotoToUpload" formControlName="fotoToUpload" (change)="onFileSelected($event)">
-  </div>
-  <div class="button">
-    <button class="btn btn-primary" type="submit">Cadastrar</button>
-    <button class="btn btn-secondary" routerLink="..">Voltar</button>
+  <div class="d-flex justify-content-end gap-2">
+    <a class="btn btn-secondary" routerLink="/admin">Voltar</a>
+    <button class="btn btn-primary" type="submit" [disabled]="enviando()">
+      {{ enviando() ? 'Salvando...' : 'Salvar' }}
+    </button>
   </div>
 </form>

@@ -1,48 +1,54 @@
 <div class="d-grid gap-2">
-  <button class="btn btn-primary" routerLink="novo">Cadastrar Novo Veículo</button>
+  <a class="btn btn-primary" routerLink="novo">Cadastrar novo veículo</a>
 </div>
 
 <div>
-  <button class="botton-order" (click)="ordenaCarros()">
-    Ordenar por Valor: <strong>{{orderbyasc ? 'Maior': 'Menor'}}</strong>
+  <button type="button" class="botton-order" (click)="alternarOrdem()">
+    Ordenar por valor: <strong>{{ ordem() === 'asc' ? 'Menor' : 'Maior' }}</strong>
   </button>
 </div>
+
+@if (erro()) {
+  <div class="alert alert-danger mt-3" role="alert">{{ erro() }}</div>
+}
+
 <div class="table-responsive">
-  <table class="table">
+  <table class="table align-middle">
     <thead>
       <tr>
-        <th scope="col">Nome Carro</th>
+        <th scope="col">Nome</th>
         <th scope="col">Marca</th>
         <th scope="col">Ano</th>
         <th scope="col">Características</th>
         <th scope="col">Quilometragem</th>
         <th scope="col">Valor</th>
-        <th></th>
+        <th scope="col"><span class="visually-hidden">Ações</span></th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let carro of carros;">
-        <td>{{carro.nome_carro}}</td>
-        <td>{{carro.marca}}</td>
-        <td>{{carro.ano_fabricacao}}/{{carro.ano_modelo}}</td>
-        <td>
-          Modelo: {{carro.modelo}}<br>
-          Cor: {{carro.cor}}<br>
-          Combustivel: {{carro.tipo_combustivel}}<br>
-          Câmbio: {{carro.cambio}}
-        </td>
-        <td>{{carro.quilometragem}} KM
-        <td>{{carro.valor | currency: 'BRL'}}</td>
-
-        <td>
-          <button class="btn btn-danger me-2" (click)="excluirCarro(carro.id_carro)">
-            Excluir
-          </button>
-          <button class="btn btn-primary" [routerLink]="['/admin/'+carro.id_carro]">
-            Editar
-          </button>
-        </td>
-      </tr>
+      @for (carro of carros(); track carro.id_carro) {
+        <tr>
+          <td>{{ carro.nome_carro }}</td>
+          <td>{{ carro.marca }}</td>
+          <td>{{ carro.ano_fabricacao }}/{{ carro.ano_modelo }}</td>
+          <td>
+            Modelo: {{ carro.modelo }}<br>
+            Cor: {{ carro.cor }}<br>
+            Combustível: {{ combustiveis[carro.tipo_combustivel] }}<br>
+            Câmbio: {{ cambios[carro.cambio] }}
+          </td>
+          <td>{{ carro.quilometragem | number }} km</td>
+          <td>{{ carro.valor | currency }}</td>
+          <td class="text-nowrap">
+            <a class="btn btn-primary me-2" [routerLink]="[carro.id_carro]">Editar</a>
+            <button type="button" class="btn btn-danger" (click)="excluirCarro(carro)">Excluir</button>
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="7" class="text-center py-4">Nenhum veículo cadastrado.</td>
+        </tr>
+      }
     </tbody>
   </table>
 </div>

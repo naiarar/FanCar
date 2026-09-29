@@ -1,25 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
 import { AuthService } from './auth/auth.service';
 
 @Component({
   selector: 'app-root',
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],host: {'class': 'page'}
+  styleUrl: './app.component.css',
+  host: { class: 'page' },
 })
 export class AppComponent {
-  title = 'frontend';
-  isLogged: boolean;
-  _isLoggedSubscription: any;
+  private readonly authService = inject(AuthService);
 
-  constructor(private authService: AuthService) {
-    this.isLogged = authService.isLoggedIn
-    this._isLoggedSubscription = authService.isLoggedInChange
-      .subscribe((value) => {
-        this.isLogged = value
-      })
-  }
+  readonly isLogged = this.authService.isLoggedIn;
+  readonly ano = new Date().getFullYear();
 
-  logout() {
-    this.authService.logout()
+  logout(): void {
+    this.authService.logout();
   }
 }

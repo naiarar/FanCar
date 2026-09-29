@@ -1,37 +1,43 @@
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import { signal } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+
 import { AppComponent } from './app.component';
 import { AuthService } from './auth/auth.service';
-import { of, Subject } from 'rxjs';
-import { MockAuthService } from './auth/mock.authservice';
-
 
 describe('AppComponent', () => {
-  let component: AppComponent;
-  let authService: AuthService;
+  const logado = signal(false);
+  const authService = { isLoggedIn: logado, logout: vi.fn() };
+
+  const renderizar = () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    return fixture.nativeElement as HTMLElement;
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [AppComponent, { provide: AuthService, useClass: MockAuthService }],
+      imports: [AppComponent],
+      providers: [provideRouter([]), { provide: AuthService, useValue: authService }],
     });
-
-    component = TestBed.inject(AppComponent);
-    authService = TestBed.inject(AuthService);
   });
 
-  it('should create the app component', () => {
-    expect(component).toBeTruthy();
+  it('mostra Login e esconde Admin para visitantes', () => {
+    logado.set(false);
+
+    const menu = renderizar().querySelector('nav')!.textContent!;
+
+    expect(menu).toContain('Login');
+    expect(menu).not.toContain('Admin');
   });
 
+  it('mostra Admin e Sair para quem está logado', () => {
+    logado.set(true);
+    const elemento = renderizar();
 
-  it('should be isLogged true when AuthService isLogged is true', () => {
-    expect(component.isLogged).toBe(true);
+    expect(elemento.querySelector('nav')!.textContent).toContain('Admin');
+    (elemento.querySelector('nav button') as HTMLButtonElement).click();
+
+    expect(authService.logout).toHaveBeenCalled();
   });
-
-  it('should set isLogged to false when AuthService call logout', () => {
-    authService.logout()
-
-    expect(component.isLogged).toBe(false);
-  });
-
 });

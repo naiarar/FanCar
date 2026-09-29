@@ -42,3 +42,7 @@
 .contact-form button:disabled:hover {
   filter: none;
 }
+
+.contact__container iframe {
+  max-width: 100%;
+}
