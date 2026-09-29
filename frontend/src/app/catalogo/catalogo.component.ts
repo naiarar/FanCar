@@ -1,27 +1,51 @@
-import { Component } from '@angular/core';
-import { CatalogoService } from '../services/catalogo.service';
+import { CurrencyPipe, DecimalPipe } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { RouterLink } from '@angular/router';
+
+import { Carro } from '../models/carro';
+import { CatalogoService, Ordem } from '../services/catalogo.service';
 
 @Component({
   selector: 'app-catalogo',
+  imports: [CurrencyPipe, DecimalPipe, FormsModule, RouterLink],
   templateUrl: './catalogo.component.html',
-  styleUrls: ['./catalogo.component.css']
+  styleUrl: './catalogo.component.css',
 })
 export class CatalogoComponent {
-  carros: any
-  orderbyasc : boolean
-  constructor(private catalogoService: CatalogoService) {
-    this.orderbyasc = true
-    this.getCarros()
+  private readonly catalogoService = inject(CatalogoService);
+
+  readonly carros = signal<Carro[]>([]);
+  readonly ordem = signal<Ordem>('asc');
+  readonly carregando = signal(true);
+  readonly erro = signal(false);
+  busca = '';
+
+  constructor() {
+    this.carregar();
   }
 
-  getCarros (){
-    this.catalogoService.carros('valor',this.orderbyasc).subscribe(result => {
-      this.carros = result
-    })
+  pesquisar(): void {
+    this.carregar();
   }
 
-  ordenaCarros (){
-    this.orderbyasc = !this.orderbyasc
-    this.getCarros()
+  alternarOrdem(): void {
+    this.ordem.update((ordem) => (ordem === 'asc' ? 'desc' : 'asc'));
+    this.carregar();
+  }
+
+  private carregar(): void {
+    this.carregando.set(true);
+    this.erro.set(false);
+    this.catalogoService.carros(this.ordem(), this.busca).subscribe({
+      next: (carros) => {
+        this.carros.set(carros);
+        this.carregando.set(false);
+      },
+      error: () => {
+        this.erro.set(true);
+        this.carregando.set(false);
+      },
+    });
   }
 }

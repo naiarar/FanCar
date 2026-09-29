@@ -1,22 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300&display=swap');
-
 * {
-margin: 0;
-padding: 0;
-border: 0;
-box-sizing: border-box;
-outline: none;
-font-size: 100%;
-font: "Mulish";
+  box-sizing: border-box;
 }
-
 
 :root {
   --orange: #ff7000;
   --dark-orange: #ff7e2e;
-  --light-blue:#619b8a;
+  --light-blue: #619b8a;
   --blue: #0f4c5c;
-  --green: #00A200;
+  --green: #00a200;
   --dark-blue: #002d47;
   --gray: rgba(88, 89, 91, 1);
   --light-gray: rgba(232, 232, 232, 0.863);
@@ -27,21 +18,18 @@ html,
 body {
   width: 100%;
   min-height: 100vh;
-
+  margin: 0;
 }
 
 body {
-  width: 100%;
-  overflow: auto;
+  font-family: 'Mulish', sans-serif;
+  background: #fff;
 }
+
 .page {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
-
-.container {
-  flex-grow: 1;
 }
 
 header {
@@ -49,22 +37,16 @@ header {
   background: var(--dark-orange);
 }
 
-span {
-  cursor: pointer;
-}
-
 .error-message {
-  color: red;
+  color: #c62828;
 }
 
-.valid {
-  border: 1px solid var(--green);
-}
-
-.invalid {
-  border: 1px solid red;
-}
-
-.invalid:focus {
-border-color: red;
+.btn-primary {
+  --bs-btn-bg: var(--blue);
+  --bs-btn-border-color: var(--blue);
+  --bs-btn-hover-bg: var(--dark-blue);
+  --bs-btn-hover-border-color: var(--dark-blue);
+  --bs-btn-active-bg: var(--dark-blue);
+  --bs-btn-disabled-bg: var(--blue);
+  --bs-btn-disabled-border-color: var(--blue);
 }

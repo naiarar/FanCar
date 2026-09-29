@@ -1,26 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@200;300&display=swap');
-
-
-*{
-  font-family: 'Mulish';
+.detalhes {
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
-
 
 img {
-  max-width: 70%;
+  max-width: 50%;
   max-height: 300px;
+  object-fit: contain;
 }
 
-table{
-  list-style: none;
-  font-weight: bold;
+table {
   font-size: 18px;
-  border-collapse: collapse;
 }
 
-th, td {
-  border: none;
-  padding: 8px;
-  text-align: center;
+th {
+  font-weight: bold;
+  width: 40%;
+}
 
+.valor {
+  color: var(--light-blue);
+  font-weight: bold;
+}
+
+.estado {
+  padding: 48px 0;
+  text-align: center;
+  color: var(--gray);
+}
+
+@media (max-width: 768px) {
+  .detalhes {
+    flex-direction: column-reverse;
+  }
+
+  img {
+    max-width: 100%;
+  }
 }

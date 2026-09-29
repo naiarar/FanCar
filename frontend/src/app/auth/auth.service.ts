@@ -1,51 +1,66 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthClient } from './auth.client';
-import { Subject } from 'rxjs';
+import { Observable, map, tap } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+import { environment } from '../../environments/environment';
+
+export interface Tokens {
+  access: string;
+  refresh: string;
+}
+
+const CHAVE_TOKENS = 'fancar.tokens';
+
+@Injectable({ providedIn: 'root' })
 export class AuthService {
-  private tokenKey = 'token';
-  public isLoggedIn: boolean;
-  isLoggedInChange: Subject<boolean> = new Subject<boolean>();
+  private readonly http = inject(HttpClient);
+  private readonly router = inject(Router);
+  private readonly tokens = signal<Tokens | null>(this.lerTokens());
 
-  constructor(
-    private authClient: AuthClient,
-    private router: Router
-  ) {
-    let token = localStorage.getItem(this.tokenKey);
-    this.isLoggedIn = token != null && token.length > 0;
+  readonly isLoggedIn = computed(() => this.tokens() !== null);
+
+  login(username: string, password: string): Observable<void> {
+    return this.http
+      .post<Tokens>(`${environment.apiUrl}/token/`, { username, password })
+      .pipe(
+        tap((tokens) => this.salvarTokens(tokens)),
+        map(() => undefined),
+      );
   }
 
-  public login(username: string, password: string): void {
-    this.authClient.login(username, password).subscribe((token) => {
-      localStorage.setItem(this.tokenKey, token);
-      this.toggleIsLoggedIn()
-      this.router.navigate(['/']);
-    });
+  renovarToken(): Observable<string> {
+    return this.http
+      .post<{ access: string }>(`${environment.apiUrl}/token/refresh/`, {
+        refresh: this.tokens()?.refresh,
+      })
+      .pipe(
+        tap(({ access }) => this.salvarTokens({ ...this.tokens()!, access })),
+        map(({ access }) => access),
+      );
   }
 
-  toggleIsLoggedIn() {
-    this.isLoggedIn = !this.isLoggedIn
-    this.isLoggedInChange.next(this.isLoggedIn);
-  }
-
-  public logout() {
-    localStorage.removeItem(this.tokenKey);
-    this.toggleIsLoggedIn()
+  logout(): void {
+    localStorage.removeItem(CHAVE_TOKENS);
+    this.tokens.set(null);
     this.router.navigate(['/login']);
   }
 
-  public getToken(): string | null {
-    if (this.isLoggedIn) {
-      const tokenString = localStorage.getItem(this.tokenKey)
-      if (tokenString) {
-        const tokenParsed = JSON.parse(tokenString)
-        return tokenParsed.access
-      }
+  getToken(): string | null {
+    return this.tokens()?.access ?? null;
+  }
+
+  private salvarTokens(tokens: Tokens): void {
+    localStorage.setItem(CHAVE_TOKENS, JSON.stringify(tokens));
+    this.tokens.set(tokens);
+  }
+
+  private lerTokens(): Tokens | null {
+    try {
+      const tokens = JSON.parse(localStorage.getItem(CHAVE_TOKENS) ?? 'null');
+      return tokens?.access && tokens?.refresh ? tokens : null;
+    } catch {
+      return null;
     }
-    return null;
   }
 }

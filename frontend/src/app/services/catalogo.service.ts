@@ -1,46 +1,38 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root',
-})
+import { environment } from '../../environments/environment';
+import { Carro } from '../models/carro';
+
+export type Ordem = 'asc' | 'desc';
+
+@Injectable({ providedIn: 'root' })
 export class CatalogoService {
+  private readonly http = inject(HttpClient);
+  private readonly url = `${environment.apiUrl}/carros/`;
 
-  constructor(private http: HttpClient) {}
-
-  public carros(atributo = 'valor', orderbyasc = true) {
-    return this.http.get(
-      '/api/carros/?ordering='+(orderbyasc? atributo: '-' + atributo),
-    );
+  carros(ordem: Ordem = 'asc', busca = ''): Observable<Carro[]> {
+    let params = new HttpParams().set('ordering', ordem === 'asc' ? 'valor' : '-valor');
+    if (busca.trim()) {
+      params = params.set('search', busca.trim());
+    }
+    return this.http.get<Carro[]>(this.url, { params });
   }
 
-  public carro(id:string) {
-    return this.http.get(
-      '/api/carros/'+id+'/',
-    );
+  carro(id: string): Observable<Carro> {
+    return this.http.get<Carro>(`${this.url}${id}/`);
   }
 
-  public excluirCarro(id: string) {
-    return this.http.delete(
-      '/api/carros/'+id+'/'
-    );
+  criarCarro(carro: FormData): Observable<Carro> {
+    return this.http.post<Carro>(this.url, carro);
   }
 
-  public criarCarro(carro: any) {
-    return this.http.post(
-      '/api/carros/',
-      carro
-    );
+  atualizarCarro(id: string, carro: FormData): Observable<Carro> {
+    return this.http.patch<Carro>(`${this.url}${id}/`, carro);
   }
 
-  public atualizarCarro(id: string, carro: any) {
-    return this.http.patch(
-      '/api/carros/'+id+'/',
-      carro
-    );
+  excluirCarro(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}${id}/`);
   }
-
-
-
 }

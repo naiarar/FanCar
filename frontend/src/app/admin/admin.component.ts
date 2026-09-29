@@ -1,35 +1,48 @@
-import { Component } from '@angular/core';
-import { CatalogoService } from '../services/catalogo.service';
+import { CurrencyPipe, DecimalPipe } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
+import { CAMBIOS, COMBUSTIVEIS, Carro } from '../models/carro';
+import { CatalogoService, Ordem } from '../services/catalogo.service';
 
 @Component({
   selector: 'app-admin',
+  imports: [CurrencyPipe, DecimalPipe, RouterLink],
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrl: './admin.component.css',
 })
-
 export class AdminComponent {
-  carros: any
-  orderbyasc : boolean
-  constructor(private catalogoService: CatalogoService) {
-    this.orderbyasc = true
-    this.getCarros()
+  private readonly catalogoService = inject(CatalogoService);
+
+  readonly carros = signal<Carro[]>([]);
+  readonly ordem = signal<Ordem>('asc');
+  readonly erro = signal<string | null>(null);
+  readonly combustiveis = COMBUSTIVEIS;
+  readonly cambios = CAMBIOS;
+
+  constructor() {
+    this.carregar();
   }
 
-  getCarros (){
-    this.catalogoService.carros('valor',this.orderbyasc).subscribe(result => {
-      this.carros = result
-    })
+  alternarOrdem(): void {
+    this.ordem.update((ordem) => (ordem === 'asc' ? 'desc' : 'asc'));
+    this.carregar();
   }
 
-  ordenaCarros (){
-    this.orderbyasc = !this.orderbyasc
-    this.getCarros()
+  excluirCarro(carro: Carro): void {
+    if (!confirm(`Excluir ${carro.marca} ${carro.nome_carro}?`)) {
+      return;
+    }
+    this.catalogoService.excluirCarro(carro.id_carro).subscribe({
+      next: () => this.carros.update((carros) => carros.filter((c) => c.id_carro !== carro.id_carro)),
+      error: () => this.erro.set('Não foi possível excluir o veículo.'),
+    });
   }
 
-  excluirCarro(id: string) {
-    this.catalogoService.excluirCarro(id).subscribe(() => {
-      this.carros = this.carros.filter((item: any) => item.id_carro !== id)
+  private carregar(): void {
+    this.catalogoService.carros(this.ordem()).subscribe({
+      next: (carros) => this.carros.set(carros),
+      error: () => this.erro.set('Não foi possível carregar os veículos.'),
     });
   }
 }
